@@ -1,0 +1,7 @@
+44 221 252 This is an example message
+255 255 255 Messages can show anything...
+0 255 0 Now Playing : Some Artist - Some Song
+255 0 255 On Air : Some Show
+0 255 255 Up Next : Some Other Show
+22 233 197 You can have as many messages as you like
+148 27 255 and in whatever colours you want too!

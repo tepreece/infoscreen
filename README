@@ -1,0 +1,121 @@
+Infoscreen v 0.5 by Thomas Preece
+http://tpreece.net
+thomas@tpreece.net
+
+DESCRIPTION
+===========
+
+Infoscreen is a program to display a studio clock and other relevant 
+information. The typical use case is a radio studio; the program can 
+also display a "dead air" warning, which overrides all of the other 
+information.
+
+USAGE INSTRUCTIONS
+==================
+
+Infoscreen is written in Python and uses SDL for display, so you need 
+Python and Pygame installed. By default it will open a 1024 * 768 
+display in windowed mode, so it's recommended to test it on a large 
+monitor. Change to the directory where the script is stored and run 
+./infoscreen.py
+
+The following features are visible by default:
+
+1. digital 24-hour clock with hours and minutes - red seven-segment display numerals
+2. digital countdown to top of hour (minutes and seconds) - green seven-segment display numerals
+3. analogue clock with hours and minutes - light blue clock hands
+4. seconds display with markers every five seconds - ring of red dots
+5. human-readable time and date - top of the screen
+6. variable messages - bottom of the screen
+
+The time displayed is current system time; you should generally use NTP 
+to ensure that your system's clock is always set correctly.
+
+The variable messages can be changed at run time. To do so, edit the 
+file "messages.txt". Each line is a separate message, and consists of 
+the required font colour (in decimal RGB - ie, 0 0 0 is black and 255 
+255 255 is white) followed by the message to be displayed. The messages 
+are displayed in rotation, approximately five seconds for each message: 
+if you want a message to be displayed for longer, put it in multiple 
+times.
+
+Once you have adjusted the messages to your liking, save the file and 
+then send a SIGHUP to the program. On most Linux systems you can find 
+the process ID by running "ps ax | grep infoscreen", and then run "kill 
+-1 <process ID>".
+
+The idea behind this is not that you would update the messages manually, 
+but that you would have a server process insert appropriate messages and 
+then notify the Infoscreen with a SIGHUP.
+
+Additionally, the Infoscreen can display a "dead air" warning. To 
+display this message, send a SIGUSR1 (kill -10). To hide the message and 
+return to the normal clock screen, send a SIGUSR2 (kill -12). Yes the 
+"artwork" is incredibly poor - but on the other hand it is suitably 
+scary and should motivate presenters to fix the dead air situation! How 
+to replace it with something better is explained later.
+
+This SIGUSR1 / SIGUSR2 mechanism ties in with my "Dead Air Alarm" 
+software; you can use it directly with Infoscreen without any further 
+interface. However the interface is hopefully simple enough that you 
+should be able to connect it to any dead air detection system of your 
+choice.
+
+You can exit the program by using your window manager's normal close 
+mechanism, or by pressing Escape.
+
+The software can be customised by editing consts.py - for the most part 
+it should be fairly self-explanatory. The parts you will particularly 
+need to pay attention to are the FULLSCREEN option (which you should 
+enable once you've got it configured as you want it) and the 
+TEXT_*_OFFSET options. Depending on the specific dimensions of the 
+rendered text on your system, you may want to move it closer to or 
+further away from the edges of the screen.
+
+The graphics are stored in the "images" directory and can be edited. You 
+may want to change the offsets and spacing parameters if you change the 
+dimensions of any of the images.
+
+BUGS AND TODO
+=============
+
+Currently the images must be in $PWD/images. This should be a 
+configuration option, or at the very least not require the working 
+directory to be set correctly.
+
+Some more options could be exposed in the consts.py file, such as the 
+positioning of the digital clocks.
+
+Add options to turn individual features on and off.
+
+Add the ability to show more information. There is space to add some 
+indicators at either side of the screen. These could be used to show 
+various things such as which studio is on air in a multi-studio complex.
+
+LICENCE
+=======
+
+Copyright (c) 2009 - 2012 Thomas Preece
+
+You may freely use this software under the conditions of the MIT licence 
+- see the LICENCE file for details.
+
+SUPPORT / CONTACT
+=================
+
+No formal technical support is available for this software, however I am 
+generally happy to answer questions and provide some assistance with 
+setting it up; if you need help, please don't hesitate to contact me. I 
+always like hearing from users of my software, and would be very 
+appreciative to hear from anyone who is using this software and finds it 
+useful, especially if you're using it in a live broadcast environment. I 
+also welcome patches for bugfixes and new features in the usual git 
+format.
+
+VERSION HISTORY
+===============
+
+v 0.5 (2012-09-03) - first published version
+
+v 0.1, 0.2, 0.3, 0.4 - unpublished versions
+
