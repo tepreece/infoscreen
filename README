@@ -1,4 +1,4 @@
-Infoscreen v 0.5 by Thomas Preece
+Infoscreen v 0.6 by Thomas Preece
 http://tpreece.net
 thomas@tpreece.net
 
@@ -64,29 +64,13 @@ choice.
 You can exit the program by using your window manager's normal close 
 mechanism, or by pressing Escape.
 
-The software can be customised by editing consts.py - for the most part 
-it should be fairly self-explanatory. The parts you will particularly 
-need to pay attention to are the FULLSCREEN option (which you should 
-enable once you've got it configured as you want it) and the 
-TEXT_*_OFFSET options. Depending on the specific dimensions of the 
-rendered text on your system, you may want to move it closer to or 
-further away from the edges of the screen.
-
-The graphics are stored in the "images" directory and can be edited. You 
-may want to change the offsets and spacing parameters if you change the 
-dimensions of any of the images.
+The software can be customised by editing config.py - this file contains
+comments which document the various options. Most of the program's
+functionality is customizable. You can also change the images, which are
+stored by default in the "images" subdirectory.
 
 BUGS AND TODO
 =============
-
-Currently the images must be in $PWD/images. This should be a 
-configuration option, or at the very least not require the working 
-directory to be set correctly.
-
-Some more options could be exposed in the consts.py file, such as the 
-positioning of the digital clocks.
-
-Add options to turn individual features on and off.
 
 Add the ability to show more information. There is space to add some 
 indicators at either side of the screen. These could be used to show 
@@ -114,6 +98,8 @@ format.
 
 VERSION HISTORY
 ===============
+
+v 0.6 (2012-09-11) - increased customizability, renamed some files
 
 v 0.5 (2012-09-03) - first published version
 
