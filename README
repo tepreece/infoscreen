@@ -21,8 +21,8 @@ monitor. Change to the directory where the script is stored and run
 
 The following features are visible by default:
 
-1. digital 24-hour clock with hours and minutes - red seven-segment display numerals
-2. digital countdown to top of hour (minutes and seconds) - green seven-segment display numerals
+1. digital 24-hour clock with hours and minutes - red seven-segment display
+2. digital countdown to top of hour (minutes and seconds) - green seven-segment
 3. analogue clock with hours and minutes - light blue clock hands
 4. seconds display with markers every five seconds - ring of red dots
 5. human-readable time and date - top of the screen
@@ -43,6 +43,11 @@ Once you have adjusted the messages to your liking, save the file and
 then send a SIGHUP to the program. On most Linux systems you can find 
 the process ID by running "ps ax | grep infoscreen", and then run "kill 
 -1 <process ID>".
+
+Alternatively, you can have Infoscreen write its process ID to a PID file. This 
+is enabled by default as of version 0.7 - you can configure the path to the PID
+file in config.py. This mechanism can also be used to prevent multiple copies of
+Infoscreen from running at the same time.
 
 The idea behind this is not that you would update the messages manually, 
 but that you would have a server process insert appropriate messages and 
@@ -98,6 +103,8 @@ format.
 
 VERSION HISTORY
 ===============
+
+v 0.7 (2012-09-30) - add PID file code
 
 v 0.6 (2012-09-11) - increased customizability, renamed some files
 

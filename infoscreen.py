@@ -101,6 +101,29 @@ def render_text(screen, font, text, x, y, color, align=LEFT):
 	
 	screen.blit(surf, (x, y))
 
+# main code starts here
+
+if USE_PIDFILE:
+	# check to see whether the PID file already exists
+	if os.access(PIDFILE, os.F_OK):
+		# PID file exists - check to see whether the process is still running
+		pf = open(PIDFILE, 'r')
+		old_pid = pf.readline()
+		if os.path.exists("/proc/%s" % old_pid):
+			# Infoscreen is already running
+			if not ALLOW_MULTIPLE_INSTANCES:
+				print 'Infoscreen is already running as PID %s' % old_pid
+				sys.exit(1)
+		else:
+			# redundant PID file - get rid of it
+			os.remove(PIDFILE)
+
+	# write the PID file
+	pid = str(os.getpid())
+	f = open(PIDFILE, 'w')
+	f.write(pid)
+	f.close()
+
 # start pygame
 
 pygame.init()
@@ -183,7 +206,8 @@ for i in xrange(60):
 		MARKER_DOTS_X.append(DOTS_CENTER_X + MARKER_DOTS_RADIUS * math.cos(rad) - DOT_SIZE/2)
 		MARKER_DOTS_Y.append(DOTS_CENTER_Y + MARKER_DOTS_RADIUS * math.sin(rad) - DOT_SIZE/2)
 
-while True:	
+done = False
+while not done:	
 	# do drawing
 	screen.fill((0, 0, 0))
 	
@@ -345,12 +369,13 @@ while True:
 	events = pygame.event.get()
 	for event in events:
 		if (event.type == QUIT) or ((event.type == KEYUP) and (event.key == K_ESCAPE)):
-			sys.exit(0)
+			done = True
 	
 	# delay
 	time.sleep(0.1)
 
+if USE_PIDFILE and DELETE_PIDFILE_ON_EXIT:
+	os.remove(PIDFILE)
 
-
-
+sys.exit(0)
 
