@@ -28,13 +28,15 @@ import time
 import math
 import json
 
+import pprint
+
 import pygame
 from pygame.locals import *
 
 from config import *
 
 # debug mode, no gfx
-DEBUG = 1
+DEBUG = 0
 
 # constants
 NORMAL = 0
@@ -70,36 +72,18 @@ def sigusr2(signum, frame):
 def sighup(signum, frame):
 	# SIGHUP - reload configuration
 	if SHOW_MESSAGES:
-		reload_messages()
+		#reload_messages()
+		reload_info()
 
 def reload_info():
+	global info
 	with open(INFO_FNAME) as file:
 		info = json.load(file)
-	return info
+		for message in info["messages"]:
+			colors = message["color"].strip().split(' ')
+			message["color"] = (int(colors[0]), int(colors[1]), int(colors[2])) 
 
-def reload_messages():
-	global messages, messagecolors, currentmessage
-
-	f = open(MESSAGES_FNAME, 'r')
-	
-	messages = []
-	messagecolors = []
-
-	for line in f:
-		try:
-			items = line.strip().split(None, 3)
-			messages.append(items[3])
-			color = (int(items[0]), int(items[1]), int(items[2]))
-			if color==(0, 0, 0): color = (255, 255, 255)
-			messagecolors.append(color)
-		except:
-			print "ERROR - can't process message line: "+line
-	
-	if currentmessage >= len(messages):
-		currentmessage = 0
-	f.close()
-
-reload_messages()
+reload_info()
 
 def render_text(screen, font, text, x, y, color, align=LEFT):
 	surf = font.render(text, True, color)
@@ -366,9 +350,9 @@ while not done:
 		if count == TICKS_PER_MESSAGE:
 			count = 0
 			currentmessage += 1
-			if currentmessage >= len(messages):
+			if currentmessage >= len(info["messages"]):
 				currentmessage = 0
-		render_text(screen, messagefont, messages[currentmessage], MESSAGE_X, MESSAGE_Y, messagecolors[currentmessage], MESSAGE_ALIGN)
+		render_text(screen, messagefont, info["messages"][currentmessage]["text"], MESSAGE_X, MESSAGE_Y, info["messages"][currentmessage]["color"], MESSAGE_ALIGN)
 	
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
