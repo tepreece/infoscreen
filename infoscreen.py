@@ -47,15 +47,6 @@ MINUS = 11
 
 # globals
 mode = NORMAL
-
-messages = [
-	'Infoscreen (c) Thomas Preece 2009-12'
-]
-
-messagecolors = [
-	(0, 255, 0)
-]
-
 currentmessage = 0
 
 # signal handlers
