@@ -26,11 +26,15 @@ import os
 import signal
 import time
 import math
+import json
 
 import pygame
 from pygame.locals import *
 
 from config import *
+
+# debug mode, no gfx
+DEBUG = 1
 
 # constants
 NORMAL = 0
@@ -130,6 +134,9 @@ if USE_PIDFILE:
 	f.close()
 
 # start pygame
+
+if DEBUG:
+	exit
 
 pygame.init()
 if FULLSCREEN:
