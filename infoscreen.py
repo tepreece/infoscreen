@@ -136,7 +136,7 @@ if USE_PIDFILE:
 # start pygame
 
 if DEBUG:
-	exit
+	sys.exit()
 
 pygame.init()
 if FULLSCREEN:
