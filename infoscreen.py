@@ -68,6 +68,11 @@ def sighup(signum, frame):
 	if SHOW_MESSAGES:
 		reload_messages()
 
+def reload_info():
+	with open(INFO_FNAME) as file:
+		info = json.load(file)
+	return info
+
 def reload_messages():
 	global messages, messagecolors, currentmessage
 

@@ -65,6 +65,9 @@ PIDFILE = 'infoscreen.pid'		# What is the name of our PID file?
 DELETE_PIDFILE_ON_EXIT = True	# Potentially unsafe if we allow multiple instances
 ALLOW_MULTIPLE_INSTANCES = False
 
+# Where to get information from (json)
+INFO_FNAME = 'info.json'
+
 # 
 # Digital Clock
 # By default this displays the current time as HH:MM in large red digits.
