@@ -1,0 +1,114 @@
+From f8c8d07f097f3eb6f50f28ee67464f96110b9d3b Mon Sep 17 00:00:00 2001
+From: Thomas <thomas@tuomas.co.uk>
+Date: Tue, 18 Dec 2012 03:06:10 +0000
+Subject: [PATCH 6/9] added trackinfo with progressbar
+
+---
+ config.py     |   12 +++++++++---
+ info.json     |   10 +++++++++-
+ infoscreen.py |   19 ++++++++++++++++---
+ 3 files changed, 34 insertions(+), 7 deletions(-)
+
+diff --git a/config.py b/config.py
+index 12f3102..139b154 100644
+--- a/config.py
++++ b/config.py
+@@ -94,8 +94,8 @@ BACKTIMER_SEPARATOR_SPACING = 29	# How many pixels to move right after the separ
+ # main ring. To customize the appearance, change "dot.png".
+ # 
+ 
+-SHOW_DOTS = True						# Should we render the ring of dots?
+-SHOW_MARKER_DOTS = True					# Should we render the marker dots?
++SHOW_DOTS = False						# Should we render the ring of dots?
++SHOW_MARKER_DOTS = False					# Should we render the marker dots?
+ DOTS_CENTER_X = CENTER_X				# Where should the center of the dots circle(s) be?
+ DOTS_CENTER_Y = CENTER_Y
+ DOTS_RADIUS = 285						# Radius of the main circle
+@@ -235,7 +235,7 @@ DATE_TEXT_SIZE = 52
+ # eg: 255 0 255 This is a message in fuchsia.
+ # 
+ 
+-SHOW_MESSAGES = True				# Should we render the messages?
++SHOW_MESSAGES = False				# Should we render the messages?
+ MESSAGES_FNAME = 'messages.txt'		# What file should we read the messages from? Absolute path is best.
+ TICKS_PER_MESSAGE = 50				# 1 tick is approximately 1/10 s
+ MESSAGE_X = 10				# Color, position, align and font as for time and date - see above. 
+@@ -244,6 +244,12 @@ MESSAGE_ALIGN = LEFT
+ MESSAGE_TEXT_FONT = None
+ MESSAGE_TEXT_SIZE = 52
+ 
++#
++# Trackinfo
++
++SHOW_TRACKINFO = True
++TRACKINFO_COLOR = (41, 255, 41)
++
+ # 
+ # END
+ #
+diff --git a/info.json b/info.json
+index 9a66cfd..fb677da 100644
+--- a/info.json
++++ b/info.json
+@@ -2,5 +2,13 @@
+ 	"messages": [
+ 	{"color":"44 221 252", "text":"ON AIR: Studio 2"},
+ 	{"color":"44 0 252", "text":"Current Show: thom"}
+-	]
++	],
++	"track":{
++	"start":"1355799000",
++	"end":"1355802000",
++	"artist":"The Smiths",
++	"title":"London"
++	},
++	"show":"George & Thomas - URN After Dark",
++	"onair":"2"
+ }
+diff --git a/infoscreen.py b/infoscreen.py
+index cec3206..61601a6 100644
+--- a/infoscreen.py
++++ b/infoscreen.py
+@@ -28,8 +28,6 @@ import time
+ import math
+ import json
+ 
+-import pprint
+-
+ import pygame
+ from pygame.locals import *
+ 
+@@ -320,7 +318,20 @@ while True:
+ 			if currentmessage >= len(info["messages"]):
+ 				currentmessage = 0
+ 		render_text(screen, messagefont, info["messages"][currentmessage]["text"], MESSAGE_X, MESSAGE_Y, info["messages"][currentmessage]["color"], MESSAGE_ALIGN)
+-	
++
++	#draw remaining time on song
++	if SHOW_TRACKINFO:
++		start = int(info["track"]["start"])
++		end = int(info["track"]["end"])
++		if (time.time() < end):
++			length = end - start
++			played = time.time() - start
++			progress = played / float(length)
++			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
++			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-74, TRACKINFO_COLOR, LEFT)
++			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-30,WIDTH,30))
++			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-30,WIDTH*progress,30))
++
+ 	# blit the dead air image after doing everything above
+ 	# dead air image could be partially transparent
+ 	if mode == DEADAIR:
+@@ -333,6 +344,8 @@ while True:
+ 	for event in events:
+ 		if (event.type == QUIT) or ((event.type == KEYUP) and (event.key == K_ESCAPE)):
+ 			sys.exit(0)
++		if ((event.type == KEYUP) and (event.key == K_r)):
++			reload_info()
+ 	
+ 	# delay
+ 	time.sleep(0.1)
+-- 
+1.7.9.5
+

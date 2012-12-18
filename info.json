@@ -2,5 +2,13 @@
 	"messages": [
 	{"color":"44 221 252", "text":"ON AIR: Studio 2"},
 	{"color":"44 0 252", "text":"Current Show: thom"}
-	]
+	],
+	"track":{
+	"start":"1355800000",
+	"end":"1355801900",
+	"artist":"Portugal. The Man",
+	"title":"It's Complicated Being A Wizard"
+	},
+	"show":"George & Thomas - URN After Dark",
+	"onair":"2"
 }

@@ -1,0 +1,25 @@
+From 0b96d3cddec3404b6f58ed6900ed2f0336ee7d7b Mon Sep 17 00:00:00 2001
+From: Thomas <thomas@tuomas.co.uk>
+Date: Mon, 17 Dec 2012 22:57:13 +0000
+Subject: [PATCH 3/9] sys.exit() not exit
+
+---
+ infoscreen.py |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/infoscreen.py b/infoscreen.py
+index b615ec8..67a2b6b 100644
+--- a/infoscreen.py
++++ b/infoscreen.py
+@@ -113,7 +113,7 @@ def render_text(screen, font, text, x, y, color, align=LEFT):
+ # start pygame
+ 
+ if DEBUG:
+-	exit
++	sys.exit()
+ 
+ pygame.init()
+ if FULLSCREEN:
+-- 
+1.7.9.5
+

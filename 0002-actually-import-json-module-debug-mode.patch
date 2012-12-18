@@ -1,0 +1,43 @@
+From af76b6d9c6ca5b5e0e4cbf3709ef7908fabb249c Mon Sep 17 00:00:00 2001
+From: Thomas <thomas@tuomas.co.uk>
+Date: Mon, 17 Dec 2012 22:55:57 +0000
+Subject: [PATCH 2/9] actually import json module, debug mode
+
+---
+ infoscreen.py |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/infoscreen.py b/infoscreen.py
+index 8941288..b615ec8 100644
+--- a/infoscreen.py
++++ b/infoscreen.py
+@@ -26,12 +26,16 @@ import os
+ import signal
+ import time
+ import math
++import json
+ 
+ import pygame
+ from pygame.locals import *
+ 
+ from config import *
+ 
++# debug mode, no gfx
++DEBUG = 1
++
+ # constants
+ NORMAL = 0
+ DEADAIR = 1
+@@ -108,6 +112,9 @@ def render_text(screen, font, text, x, y, color, align=LEFT):
+ 
+ # start pygame
+ 
++if DEBUG:
++	exit
++
+ pygame.init()
+ if FULLSCREEN:
+ 	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+-- 
+1.7.9.5
+

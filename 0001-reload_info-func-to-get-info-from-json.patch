@@ -1,0 +1,43 @@
+From 4bbf159a4e072745cbef7b5af2b26161818241b4 Mon Sep 17 00:00:00 2001
+From: Thomas <thomas@tuomas.co.uk>
+Date: Mon, 17 Dec 2012 22:50:06 +0000
+Subject: [PATCH 1/9] reload_info func to get info from json
+
+---
+ config.py     |    3 +++
+ infoscreen.py |    5 +++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/config.py b/config.py
+index 705f484..12f3102 100644
+--- a/config.py
++++ b/config.py
+@@ -53,6 +53,9 @@ CENTER_Y = HEIGHT/2
+ # the box.
+ IMAGE_DIR = './images'
+ 
++# Where to get information from (json)
++INFO_FNAME = 'info.json'
++
+ # 
+ # Digital Clock
+ # By default this displays the current time as HH:MM in large red digits.
+diff --git a/infoscreen.py b/infoscreen.py
+index 5d4a771..8941288 100644
+--- a/infoscreen.py
++++ b/infoscreen.py
+@@ -68,6 +68,11 @@ def sighup(signum, frame):
+ 	if SHOW_MESSAGES:
+ 		reload_messages()
+ 
++def reload_info():
++	with open(INFO_FNAME) as file:
++		info = json.load(file)
++	return info
++
+ def reload_messages():
+ 	global messages, messagecolors, currentmessage
+ 
+-- 
+1.7.9.5
+

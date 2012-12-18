@@ -28,8 +28,6 @@ import time
 import math
 import json
 
-import pprint
-
 import pygame
 from pygame.locals import *
 
@@ -344,7 +342,30 @@ while not done:
 			if currentmessage >= len(info["messages"]):
 				currentmessage = 0
 		render_text(screen, messagefont, info["messages"][currentmessage]["text"], MESSAGE_X, MESSAGE_Y, info["messages"][currentmessage]["color"], MESSAGE_ALIGN)
-	
+
+	# draw show/onair info
+	if SHOW_ONAIR:
+		onair = "Live from Studio " + info["onair"]	
+		render_text(screen, messagefont, info["show"], WIDTH-10, HEIGHT-200, SHOW_COLOR, RIGHT)
+		render_text(screen, messagefont, onair, WIDTH-10, HEIGHT-160, ONAIR_COLOR, RIGHT)
+
+	#draw remaining time on song
+	if SHOW_TRACKINFO:
+		start = int(info["track"]["start"])
+		end = int(info["track"]["end"])
+		if (time.time() < end):
+			length = end - start
+			played = time.time() - start
+			remains = end - time.time()
+			m, s = divmod(remains, 60)
+			remainingstr = "%d:%02d" % (m, s)
+			progress = played / float(length)
+			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
+			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-30,WIDTH,30))
+			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-30,WIDTH*progress,30))
+			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-74, TRACKINFO_COLOR, LEFT)
+			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-30, TRACKINFO_REMAINS_COLOR, RIGHT)
+
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
 	if mode == DEADAIR:
@@ -357,6 +378,9 @@ while not done:
 	for event in events:
 		if (event.type == QUIT) or ((event.type == KEYUP) and (event.key == K_ESCAPE)):
 			done = True
+			sys.exit(0)
+		if ((event.type == KEYUP) and (event.key == K_r)):
+			reload_info()
 	
 	# delay
 	time.sleep(0.1)

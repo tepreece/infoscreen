@@ -1,0 +1,21 @@
+From b7e4a414c9ad9b21f26b8dbcfac3cfd42dd0fdfa Mon Sep 17 00:00:00 2001
+From: Thomas <thomas@tuomas.co.uk>
+Date: Tue, 18 Dec 2012 03:42:42 +0000
+Subject: [PATCH 9/9] added .gitignore
+
+---
+ .gitignore |    2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..f04519a
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++config.pyc
++messages.txt
+-- 
+1.7.9.5
+
