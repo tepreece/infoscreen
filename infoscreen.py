@@ -31,6 +31,7 @@ import json
 import pygame
 from pygame.locals import *
 
+import config
 from config import *
 
 # debug mode, no gfx
@@ -74,6 +75,9 @@ def reload_info():
 			message["color"] = (int(colors[0]), int(colors[1]), int(colors[2])) 
 
 reload_info()
+
+def reload_config():
+	reload(config)
 
 def render_text(screen, font, text, x, y, color, align=LEFT):
 	surf = font.render(text, True, color)
@@ -370,8 +374,8 @@ while not done:
 			remainingstr = "%d:%02d" % (m, s)
 			progress = played / float(length)
 			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
-			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH,TRACKINFO_BAR_HEIGHT))
-			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH*progress,TRACKINFO_BAR_HEIGHT))
+			pygame.draw.rect(screen, COLOR['PROGRESS_BG'], pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH,TRACKINFO_BAR_HEIGHT))
+			pygame.draw.rect(screen, COLOR['PROGRESS_FG'], pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH*progress,TRACKINFO_BAR_HEIGHT))
 			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-TRACKINFO_BAR_HEIGHT-40, COLOR['TRACK_INFO'], LEFT)
 			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-(TRACKINFO_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
 		else:
@@ -392,6 +396,8 @@ while not done:
 			sys.exit(0)
 		if ((event.type == KEYUP) and (event.key == K_r)):
 			reload_info()
+			reload(config)
+			from config import *
 	
 	# delay
 	time.sleep(0.1)

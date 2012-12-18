@@ -262,6 +262,8 @@ COLOR = {
 		'ONAIR': (150, 255, 211),
 		'TRACK_INFO': (41, 255, 41),
 		'TRACK_REMAINS': (200, 200, 200),
+		'PROGRESS_FG': (100, 0, 255),
+		'PROGRESS_BG': (30, 0, 100),
 		'TIME': (255, 255, 255),
 		'DATE': (255, 255, 255)
 		}
