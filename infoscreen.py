@@ -326,12 +326,12 @@ while not done:
 			else:
 				timestr = MINUTES[mins] + pastto + HOURS[hour]
 		
-		render_text(screen, timefont, timestr, TIME_TEXT_X, TIME_TEXT_Y, TIME_TEXT_COLOR, TIME_TEXT_ALIGN)
+		render_text(screen, timefont, timestr, TIME_TEXT_X, TIME_TEXT_Y, COLOR['TIME'], TIME_TEXT_ALIGN)
 	
 	# draw date text
 	if SHOW_DATE_TEXT:
 		datestr = time.strftime(DATE_TEXT_FORMAT)
-		render_text(screen, datefont, datestr, DATE_TEXT_X, DATE_TEXT_Y, DATE_TEXT_COLOR, DATE_TEXT_ALIGN)
+		render_text(screen, datefont, datestr, DATE_TEXT_X, DATE_TEXT_Y, COLOR['DATE'], DATE_TEXT_ALIGN)
 	
 	# draw message text
 	if SHOW_MESSAGES:
@@ -346,8 +346,8 @@ while not done:
 	# draw show/onair info
 	if SHOW_ONAIR:
 		onair = "Live from Studio " + info["onair"]	
-		render_text(screen, messagefont, info["show"], WIDTH-10, HEIGHT-200, SHOW_COLOR, RIGHT)
-		render_text(screen, messagefont, onair, WIDTH-10, HEIGHT-160, ONAIR_COLOR, RIGHT)
+		render_text(screen, messagefont, info["show"], WIDTH-10, HEIGHT-200, COLOR['SHOW'], RIGHT)
+		render_text(screen, messagefont, onair, WIDTH-10, HEIGHT-160, COLOR['ONAIR'], RIGHT)
 
 	#draw remaining time on song
 	if SHOW_TRACKINFO:
@@ -363,8 +363,8 @@ while not done:
 			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
 			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-30,WIDTH,30))
 			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-30,WIDTH*progress,30))
-			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-74, TRACKINFO_COLOR, LEFT)
-			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-30, TRACKINFO_REMAINS_COLOR, RIGHT)
+			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-74, COLOR['TRACK_INFO'], LEFT)
+			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-30, COLOR['TRACK_REMAINS'], RIGHT)
 
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent

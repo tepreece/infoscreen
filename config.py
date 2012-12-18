@@ -149,7 +149,6 @@ RING_COLOR = (0, 255, 255)
 # 
 
 SHOW_TIME_TEXT = True				# Should we render the time text?
-TIME_TEXT_COLOR = (255, 255, 255)	# What colour should it be in?
 LOWERCASE_HOURS = True				# Should we force the hour part to lower case?
 TIME_TEXT_X = 10					# Where should we render the time text?
 TIME_TEXT_Y = 1						# This must be the top of the text.
@@ -229,7 +228,6 @@ OCLOCK = 'o\'clock'
 
 SHOW_DATE_TEXT = True				# Should we render the date text?
 DATE_TEXT_FORMAT = '%A %d %B'		# See: http://docs.python.org/library/time.html#time.strftime
-DATE_TEXT_COLOR = (255, 255, 255)	# Color, position, align and font as for time - see above. 
 DATE_TEXT_X = WIDTH-10
 DATE_TEXT_Y = 1
 DATE_TEXT_ALIGN = RIGHT
@@ -250,13 +248,21 @@ MESSAGE_ALIGN = CENTER
 MESSAGE_TEXT_FONT = None
 MESSAGE_TEXT_SIZE = 52
 
-SHOW_TRACKINFO = True
-TRACKINFO_COLOR = (41, 255, 41)
-TRACKINFO_REMAINS_COLOR = (200, 200, 200)
+# Trackinfo
 
+SHOW_TRACKINFO = True
 SHOW_ONAIR = True
-SHOW_COLOR = (41, 255, 211)
-ONAIR_COLOR = (150, 255, 211)
+
+# Colors
+
+COLOR = {
+		'SHOW': (41, 255, 211),
+		'ONAIR': (150, 255, 211),
+		'TRACK_INFO': (41, 255, 41),
+		'TRACK_REMAINS': (200, 200, 200),
+		'TIME': (255, 255, 255),
+		'DATE': (255, 255, 255)
+		}
 
 # 
 # END
