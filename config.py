@@ -106,8 +106,8 @@ BACKTIMER_SEPARATOR_SPACING = 29	# How many pixels to move right after the separ
 # main ring. To customize the appearance, change "dot.png".
 # 
 
-SHOW_DOTS = True						# Should we render the ring of dots?
-SHOW_MARKER_DOTS = True					# Should we render the marker dots?
+SHOW_DOTS = False						# Should we render the ring of dots?
+SHOW_MARKER_DOTS = False					# Should we render the marker dots?
 DOTS_CENTER_X = CENTER_X				# Where should the center of the dots circle(s) be?
 DOTS_CENTER_Y = CENTER_Y
 DOTS_RADIUS = 285						# Radius of the main circle
@@ -247,7 +247,7 @@ DATE_TEXT_SIZE = 52
 # eg: 255 0 255 This is a message in fuchsia.
 # 
 
-SHOW_MESSAGES = True				# Should we render the messages?
+SHOW_MESSAGES = False				# Should we render the messages?
 MESSAGES_FNAME = 'messages.txt'		# What file should we read the messages from? Absolute path is best.
 TICKS_PER_MESSAGE = 50				# 1 tick is approximately 1/10 s
 MESSAGE_X = CENTER_X				# Color, position, align and font as for time and date - see above. 
@@ -255,6 +255,12 @@ MESSAGE_Y = HEIGHT-70
 MESSAGE_ALIGN = CENTER
 MESSAGE_TEXT_FONT = None
 MESSAGE_TEXT_SIZE = 52
+
+#
+# Trackinfo
+
+SHOW_TRACKINFO = True
+TRACKINFO_COLOR = (41, 255, 41)
 
 # 
 # END
