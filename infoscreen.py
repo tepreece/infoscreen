@@ -46,6 +46,7 @@ MINUS = 11
 # globals
 mode = NORMAL
 currentmessage = 0
+TRACKINFO = 0
 
 # signal handlers
 def sigusr1(signum, frame):
@@ -345,15 +346,23 @@ while not done:
 
 	# draw show/onair info
 	if SHOW_ONAIR:
+		if TRACKINFO:
+			SHOW_HEIGHT = HEIGHT - 200
+			ONAIR_HEIGHT = HEIGHT - 160
+		else:
+			SHOW_HEIGHT = HEIGHT - 80
+			ONAIR_HEIGHT = HEIGHT - 40
+
 		onair = "Live from Studio " + info["onair"]	
-		render_text(screen, messagefont, info["show"], WIDTH-10, HEIGHT-200, COLOR['SHOW'], RIGHT)
-		render_text(screen, messagefont, onair, WIDTH-10, HEIGHT-160, COLOR['ONAIR'], RIGHT)
+		render_text(screen, messagefont, info["show"], WIDTH-10, SHOW_HEIGHT, COLOR['SHOW'], RIGHT)
+		render_text(screen, messagefont, onair, WIDTH-10, ONAIR_HEIGHT, COLOR['ONAIR'], RIGHT)
 
 	#draw remaining time on song
 	if SHOW_TRACKINFO:
 		start = int(info["track"]["start"])
 		end = int(info["track"]["end"])
 		if (time.time() < end):
+			TRACKINFO = 1
 			length = end - start
 			played = time.time() - start
 			remains = end - time.time()
@@ -365,6 +374,8 @@ while not done:
 			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH*progress,TRACKINFO_BAR_HEIGHT))
 			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-TRACKINFO_BAR_HEIGHT-40, COLOR['TRACK_INFO'], LEFT)
 			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-(TRACKINFO_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
+		else:
+			TRACKINFO = 0
 
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
