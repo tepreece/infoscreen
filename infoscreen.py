@@ -361,10 +361,10 @@ while not done:
 			remainingstr = "%d:%02d" % (m, s)
 			progress = played / float(length)
 			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
-			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-30,WIDTH,30))
-			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-30,WIDTH*progress,30))
-			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-74, COLOR['TRACK_INFO'], LEFT)
-			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-30, COLOR['TRACK_REMAINS'], RIGHT)
+			pygame.draw.rect(screen, (255,0,0), pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH,TRACKINFO_BAR_HEIGHT))
+			pygame.draw.rect(screen, (0,255,0), pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH*progress,TRACKINFO_BAR_HEIGHT))
+			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-TRACKINFO_BAR_HEIGHT-40, COLOR['TRACK_INFO'], LEFT)
+			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-(TRACKINFO_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
 
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
