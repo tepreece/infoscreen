@@ -80,7 +80,7 @@ INFO_FNAME = 'info.json'
 SHOW_DIGITAL = True					# Should we render the digital clock?
 DIGITAL_SECONDS = False				# False - HH:MM; True - HH:MM:SS
 DIGITAL_X = CENTER_X - 215			# Define where to start drawing the clock
-DIGITAL_Y = CENTER_Y - 156			# (this is the top-left point).
+DIGITAL_Y = CENTER_Y - 250			# (this is the top-left point).
 DIGITAL_DIGIT_SPACING = 100			# How many pixels to move right after each digit
 DIGITAL_SEPARATOR_SPACING = 29		# How many pixels to move right after the separator (:)
 
@@ -94,7 +94,7 @@ DIGITAL_SEPARATOR_SPACING = 29		# How many pixels to move right after the separa
 SHOW_BACKTIMER = True				# Should we render the backtimer?
 BACKTIMER_MINUS = True				# Should we show a minus at the start?
 BACKTIMER_X = CENTER_X - 215		# Define where to start drawing the backtimer
-BACKTIMER_Y = CENTER_Y + 12			# (this is the top-left point).
+BACKTIMER_Y = CENTER_Y - 100			# (this is the top-left point).
 BACKTIMER_DIGIT_SPACING = 80		# How many pixels to move right after each digit
 BACKTIMER_MINUS_SPACING = 80		# How many pixels to move right after the minus (if it's rendered)
 BACKTIMER_SEPARATOR_SPACING = 29	# How many pixels to move right after the separator (:)
