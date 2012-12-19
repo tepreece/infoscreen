@@ -222,7 +222,11 @@ while not done:
 		
 	# draw clock with font
 	if SHOW_DIGITAL:
-		digitalstr = time.strftime("%H:%M")
+		if DIGITAL_SECONDS:
+			digitalstr = time.strftime("%H:%M:%S")
+		else:
+			digitalstr = time.strftime("%H:%M")
+
 		render_text(screen, digitalfont, digitalstr, DIGITAL_X, DIGITAL_Y, COLOR['DIGITAL'], CENTER)
 
 	# draw backtimer
