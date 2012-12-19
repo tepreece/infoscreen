@@ -68,7 +68,7 @@ SHOW_DIGITAL = True					# Should we render the digital clock?
 DIGITAL_SECONDS = False				# False - HH:MM; True - HH:MM:SS
 DIGITAL_FONT_SIZE = 200
 DIGITAL_X = CENTER_X
-DIGITAL_Y = CENTER_Y - 250
+DIGITAL_Y = CENTER_Y - 150
 
 
 # 
@@ -79,7 +79,7 @@ SHOW_BACKTIMER = True				# Should we render the backtimer?
 BACKTIMER_FONT_SIZE = 150
 BACKTIMER_MINUS = True				# Should we show a minus at the start?
 BACKTIMER_X = CENTER_X		
-BACKTIMER_Y = CENTER_Y - 100			
+BACKTIMER_Y = CENTER_Y			
 
 # 
 # Dots
@@ -88,7 +88,7 @@ BACKTIMER_Y = CENTER_Y - 100
 # main ring. To customize the appearance, change "dot.png".
 # 
 
-SHOW_DOTS = False						# Should we render the ring of dots?
+SHOW_DOTS = True						# Should we render the ring of dots?
 SHOW_MARKER_DOTS = False					# Should we render the marker dots?
 DOTS_CENTER_X = CENTER_X				# Where should the center of the dots circle(s) be?
 DOTS_CENTER_Y = CENTER_Y
@@ -240,7 +240,14 @@ MESSAGE_TEXT_SIZE = 52
 # Trackinfo
 
 SHOW_TRACKINFO = True
-TRACKINFO_BAR_HEIGHT = 50
+SHOW_PROGRESS = True
+PROGRESS_BAR_HEIGHT= 50
+SHOW_REMAINING = True
+
+NP_FONT = None
+NP_FONT_SIZE = 52
+REMAINS_FONT = None
+REMAINS_FONT_SIZE = 36
 
 SHOW_ONAIR = True
 
@@ -251,7 +258,7 @@ COLOR = {
 		'BACKTIMER': (0, 255, 0),
 		'SHOW': (41, 255, 211),
 		'ONAIR': (150, 255, 211),
-		'TRACK_INFO': (41, 255, 41),
+		'TRACK_INFO': (255, 255, 255),
 		'TRACK_REMAINS': (200, 200, 200),
 		'PROGRESS_FG': (100, 0, 255),
 		'PROGRESS_BG': (30, 0, 100),

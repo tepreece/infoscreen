@@ -131,6 +131,8 @@ datefont = pygame.font.Font(DATE_TEXT_FONT, DATE_TEXT_SIZE)
 messagefont = pygame.font.Font(MESSAGE_TEXT_FONT, MESSAGE_TEXT_SIZE)
 digitalfont = pygame.font.Font(CLOCK_FONT, DIGITAL_FONT_SIZE)
 backtimerfont = pygame.font.Font(CLOCK_FONT, BACKTIMER_FONT_SIZE)
+npfont = pygame.font.Font(NP_FONT, NP_FONT_SIZE)
+remainsfont = pygame.font.Font(REMAINS_FONT, REMAINS_FONT_SIZE)
 
 dot_red = pygame.image.load(IMAGE_DIR+'/dot.png')
 
@@ -292,24 +294,26 @@ while not done:
 		render_text(screen, messagefont, onair, WIDTH-10, ONAIR_HEIGHT, COLOR['ONAIR'], RIGHT)
 
 	#draw remaining time on song
-	if SHOW_TRACKINFO:
-		start = int(info["track"]["start"])
-		end = int(info["track"]["end"])
-		if (time.time() < end):
-			TRACKINFO = 1
-			length = end - start
-			played = time.time() - start
-			remains = end - time.time()
-			m, s = divmod(remains, 60)
+	start = int(info["track"]["start"])
+	end = int(info["track"]["end"])
+	if (time.time() < end):
+		length = end - start
+		played = time.time() - start
+		remains = end - time.time()
+		m, s = divmod(remains, 60)
+		progress = played / float(length)
+
+		if SHOW_PROGRESS:
+			pygame.draw.rect(screen, COLOR['PROGRESS_BG'], pygame.Rect(0,HEIGHT-PROGRESS_BAR_HEIGHT,WIDTH,PROGRESS_BAR_HEIGHT))
+			pygame.draw.rect(screen, COLOR['PROGRESS_FG'], pygame.Rect(0,HEIGHT-PROGRESS_BAR_HEIGHT,WIDTH*progress,PROGRESS_BAR_HEIGHT))
+
+		if SHOW_TRACKINFO:
 			remainingstr = "%d:%02d" % (m, s)
-			progress = played / float(length)
-			trackinfostr = "now playing: " + info["track"]["artist"] + " - " + info["track"]["title"]
-			pygame.draw.rect(screen, COLOR['PROGRESS_BG'], pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH,TRACKINFO_BAR_HEIGHT))
-			pygame.draw.rect(screen, COLOR['PROGRESS_FG'], pygame.Rect(0,HEIGHT-TRACKINFO_BAR_HEIGHT,WIDTH*progress,TRACKINFO_BAR_HEIGHT))
-			render_text(screen, messagefont, trackinfostr, 10, HEIGHT-TRACKINFO_BAR_HEIGHT-40, COLOR['TRACK_INFO'], LEFT)
-			render_text(screen, messagefont, remainingstr, WIDTH-10, HEIGHT-(TRACKINFO_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
-		else:
-			TRACKINFO = 0
+			trackinfostr = info["track"]["artist"] + " - " + info["track"]["title"]
+			render_text(screen, npfont, trackinfostr, 10, HEIGHT-PROGRESS_BAR_HEIGHT+10, COLOR['TRACK_INFO'], LEFT)
+	
+		if SHOW_REMAINING:
+				render_text(screen, remainsfont, remainingstr, WIDTH-10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
 
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
