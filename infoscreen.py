@@ -111,12 +111,10 @@ if USE_PIDFILE:
 	f.write(pid)
 	f.close()
 
-# start pygame
-
-print time.strftime("%H:%M")
-
 if DEBUG:
 	sys.exit()
+
+# start pygame
 
 pygame.init()
 if FULLSCREEN:

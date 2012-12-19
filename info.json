@@ -1,14 +1,1 @@
-{
-	"messages": [
-	{"color":"44 221 252", "text":"ON AIR: Studio 2"},
-	{"color":"44 0 252", "text":"Current Show: thom"}
-	],
-	"track":{
-	"start":"1355808890",
-	"end":"1355809850",
-	"artist":"Portugal. The Man",
-	"title":"It's Complicated Being A Wizard"
-	},
-	"show":"George & Thomas - URN After Dark",
-	"onair":"2"
-}
+{"messages":[{"color":"44 221 252","text":"ON AIR: Studio 2"},{"color":"44 0 252","text":"Current Show: thom"}],"track":{"start":1355882385,"end":1355882615.78,"artist":"Brandon Flowers","title":"Crossfire"},"show":"George & Thomas - URN After Dark","onair":"2"}
