@@ -133,6 +133,7 @@ digitalfont = pygame.font.Font(CLOCK_FONT, DIGITAL_FONT_SIZE)
 backtimerfont = pygame.font.Font(CLOCK_FONT, BACKTIMER_FONT_SIZE)
 npfont = pygame.font.Font(NP_FONT, NP_FONT_SIZE)
 remainsfont = pygame.font.Font(REMAINS_FONT, REMAINS_FONT_SIZE)
+onairfont = pygame.font.Font(ONAIR_FONT, ONAIR_FONT_SIZE)
 
 dot_red = pygame.image.load(IMAGE_DIR+'/dot.png')
 
@@ -287,20 +288,19 @@ while not done:
 	# draw show/onair info
 	if SHOW_ONAIR:
 		if TRACKINFO:
-			SHOW_HEIGHT = HEIGHT - 200
-			ONAIR_HEIGHT = HEIGHT - 160
+			ONAIR_Y = HEIGHT - PROGRESS_BAR_HEIGHT - ONAIR_FONT_SIZE
 		else:
-			SHOW_HEIGHT = HEIGHT - 80
-			ONAIR_HEIGHT = HEIGHT - 40
-
+			ONAIR_Y = HEIGHT - ONAIR_FONT_SIZE
 		onair = "Live from Studio " + info["onair"]	
-		render_text(screen, messagefont, info["show"], WIDTH-10, SHOW_HEIGHT, COLOR['SHOW'], RIGHT)
-		render_text(screen, messagefont, onair, WIDTH-10, ONAIR_HEIGHT, COLOR['ONAIR'], RIGHT)
+		render_text(screen, onairfont, info["show"], 10, ONAIR_Y, COLOR['SHOW'], LEFT)
+		render_text(screen, onairfont, onair, WIDTH-10, ONAIR_Y, COLOR['ONAIR'], RIGHT)
 
-	#draw remaining time on song
+	# NOW PLAYING stuff
+	#
 	start = int(info["track"]["start"])
 	end = int(info["track"]["end"])
-	if (time.time() < end):
+	if (time.time() < end) and (SHOW_PROGRESS or SHOW_TRACKINFO or SHOW_REMAINING):
+		TRACKINFO = 1
 		length = end - start
 		played = time.time() - start
 		remains = end - time.time()
@@ -312,12 +312,15 @@ while not done:
 			pygame.draw.rect(screen, COLOR['PROGRESS_FG'], pygame.Rect(0,HEIGHT-PROGRESS_BAR_HEIGHT,WIDTH*progress,PROGRESS_BAR_HEIGHT))
 
 		if SHOW_TRACKINFO:
-			remainingstr = "%d:%02d" % (m, s)
 			trackinfostr = info["track"]["artist"] + " - " + info["track"]["title"]
-			render_text(screen, npfont, trackinfostr, 10, HEIGHT-PROGRESS_BAR_HEIGHT+10, COLOR['TRACK_INFO'], LEFT)
+			render_text(screen, npfont, trackinfostr, 10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_INFO'], LEFT)
 	
 		if SHOW_REMAINING:
-				render_text(screen, remainsfont, remainingstr, WIDTH-10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
+			remainingstr = "%d:%02d" % (m, s)
+			render_text(screen, remainsfont, remainingstr, WIDTH-10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
+	
+	else:
+		TRACKINFO = 0
 
 	# blit the dead air image after doing everything above
 	# dead air image could be partially transparent
