@@ -76,10 +76,13 @@ ALLOW_MULTIPLE_INSTANCES = False
 
 SHOW_DIGITAL = True					# Should we render the digital clock?
 DIGITAL_SECONDS = False				# False - HH:MM; True - HH:MM:SS
-DIGITAL_X = CENTER_X - 215			# Define where to start drawing the clock
+DIGITAL_X = CENTER_X			# Define where to start drawing the clock
 DIGITAL_Y = CENTER_Y - 250			# (this is the top-left point).
 DIGITAL_DIGIT_SPACING = 100			# How many pixels to move right after each digit
 DIGITAL_SEPARATOR_SPACING = 29		# How many pixels to move right after the separator (:)
+
+CLOCK_FONT = 'clock.ttf'
+DIGITAL_FONT_SIZE = 200
 
 # 
 # Backtimer
@@ -89,8 +92,9 @@ DIGITAL_SEPARATOR_SPACING = 29		# How many pixels to move right after the separa
 # 
 
 SHOW_BACKTIMER = True				# Should we render the backtimer?
+BACKTIMER_FONT_SIZE = 150
 BACKTIMER_MINUS = True				# Should we show a minus at the start?
-BACKTIMER_X = CENTER_X - 215		# Define where to start drawing the backtimer
+BACKTIMER_X = CENTER_X		# Define where to start drawing the backtimer
 BACKTIMER_Y = CENTER_Y - 100			# (this is the top-left point).
 BACKTIMER_DIGIT_SPACING = 80		# How many pixels to move right after each digit
 BACKTIMER_MINUS_SPACING = 80		# How many pixels to move right after the minus (if it's rendered)
@@ -258,6 +262,8 @@ SHOW_ONAIR = True
 # Colors
 
 COLOR = {
+		'DIGITAL': (255, 0, 0),
+		'BACKTIMER': (0, 255, 0),
 		'SHOW': (41, 255, 211),
 		'ONAIR': (150, 255, 211),
 		'TRACK_INFO': (41, 255, 41),

@@ -113,6 +113,8 @@ if USE_PIDFILE:
 
 # start pygame
 
+print time.strftime("%H:%M")
+
 if DEBUG:
 	sys.exit()
 
@@ -129,45 +131,10 @@ screen = pygame.display.get_surface()
 timefont = pygame.font.Font(TIME_TEXT_FONT, TIME_TEXT_SIZE)
 datefont = pygame.font.Font(DATE_TEXT_FONT, DATE_TEXT_SIZE)
 messagefont = pygame.font.Font(MESSAGE_TEXT_FONT, MESSAGE_TEXT_SIZE)
-
-# load surfaces
-
-digital_nums = [
-	pygame.image.load(IMAGE_DIR+'/digital0.png'),
-	pygame.image.load(IMAGE_DIR+'/digital1.png'),
-	pygame.image.load(IMAGE_DIR+'/digital2.png'),
-	pygame.image.load(IMAGE_DIR+'/digital3.png'),
-	pygame.image.load(IMAGE_DIR+'/digital4.png'),
-	pygame.image.load(IMAGE_DIR+'/digital5.png'),
-	pygame.image.load(IMAGE_DIR+'/digital6.png'),
-	pygame.image.load(IMAGE_DIR+'/digital7.png'),
-	pygame.image.load(IMAGE_DIR+'/digital8.png'),
-	pygame.image.load(IMAGE_DIR+'/digital9.png'),
-	pygame.image.load(IMAGE_DIR+'/digitalc.png'),
-]
-
-backtimer_nums = [
-	pygame.image.load(IMAGE_DIR+'/backtimer0.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer1.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer2.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer3.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer4.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer5.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer6.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer7.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer8.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimer9.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimerc.png'),
-	pygame.image.load(IMAGE_DIR+'/backtimerm.png'),
-]
+digitalfont = pygame.font.Font(CLOCK_FONT, DIGITAL_FONT_SIZE)
+backtimerfont = pygame.font.Font(CLOCK_FONT, BACKTIMER_FONT_SIZE)
 
 dot_red = pygame.image.load(IMAGE_DIR+'/dot.png')
-
-for num in digital_nums:
-	num.set_colorkey((0, 0, 0))
-for num in backtimer_nums:
-	num.set_colorkey((255, 0, 255))
-dot_red.set_colorkey((0, 0, 0))
 
 surf_deadair = pygame.image.load(IMAGE_DIR+'/deadair.png')
 
@@ -253,34 +220,11 @@ while not done:
 		# draw hub
 		pygame.draw.circle(screen, HUB_COLOR, (ANALOG_CENTER_X, ANALOG_CENTER_Y), HUB_RADIUS)
 		
-	
-	# draw digital clock
+	# draw clock with font
 	if SHOW_DIGITAL:
-		(digit1, digit2) = divmod(hour, 10)
-		(digit3, digit4) = divmod(mins, 10)
-		(digit5, digit6) = divmod(secs, 10)
-		
-		x = DIGITAL_X
-		y = DIGITAL_Y
-		
-		screen.blit(digital_nums[digit1], (x, y))
-		x += DIGITAL_DIGIT_SPACING
-		screen.blit(digital_nums[digit2], (x, y))
-		x += DIGITAL_DIGIT_SPACING
-		screen.blit(digital_nums[COLON], (x, y))
-		x += DIGITAL_SEPARATOR_SPACING
-		screen.blit(digital_nums[digit3], (x, y))
-		x += DIGITAL_DIGIT_SPACING
-		screen.blit(digital_nums[digit4], (x, y))
-		
-		if DIGITAL_SECONDS:
-			x += DIGITAL_DIGIT_SPACING
-			screen.blit(digital_nums[COLON], (x, y))
-			x += DIGITAL_SEPARATOR_SPACING
-			screen.blit(digital_nums[digit5], (x, y))
-			x += DIGITAL_DIGIT_SPACING
-			screen.blit(digital_nums[digit6], (x, y))
-	
+		digitalstr = time.strftime("%H:%M")
+		render_text(screen, digitalfont, digitalstr, DIGITAL_X, DIGITAL_Y, COLOR['DIGITAL'], CENTER)
+
 	# draw backtimer
 	if SHOW_BACKTIMER:
 		minsleft = 59 - mins
@@ -290,27 +234,15 @@ while not done:
 			minsleft += 1
 		if minsleft==60:
 			minsleft = 0
-	
-		(digit1, digit2) = divmod(minsleft, 10)
-		(digit3, digit4) = divmod(secsleft, 10)
-	
-		x = BACKTIMER_X
-		y = BACKTIMER_Y
-		
+
 		if BACKTIMER_MINUS:
-			screen.blit(backtimer_nums[MINUS], (x, y))
-			x += BACKTIMER_MINUS_SPACING
-		
-		screen.blit(backtimer_nums[digit1], (x, y))
-		x += BACKTIMER_DIGIT_SPACING
-		screen.blit(backtimer_nums[digit2], (x, y))
-		x += BACKTIMER_DIGIT_SPACING
-		screen.blit(backtimer_nums[COLON], (x, y))
-		x += BACKTIMER_SEPARATOR_SPACING
-		screen.blit(backtimer_nums[digit3], (x, y))
-		x += BACKTIMER_DIGIT_SPACING
-		screen.blit(backtimer_nums[digit4], (x, y))
-	
+			backtimerstr = "-" + str(minsleft) + ":" + str(secsleft)
+		else:
+			backtimerstr = str(minsleft) + ":" + str(secsleft)
+
+		render_text(screen, backtimerfont, backtimerstr, BACKTIMER_X, BACKTIMER_Y, COLOR['BACKTIMER'], CENTER)
+
+
 	# draw time text
 	if SHOW_TIME_TEXT:
 		pastto = ' '+PAST+' '
