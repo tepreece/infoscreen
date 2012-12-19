@@ -53,6 +53,8 @@ CENTER_Y = HEIGHT/2
 # the box.
 IMAGE_DIR = './images'
 
+CLOCK_FONT = 'clock.ttf'
+
 # Process management. We store the process ID of the process in a PID file. This
 # allows us to tell if Infoscreen is already running, and allows other processes
 # to send signals to the right place. We can also (optionally) delete the PID
@@ -68,37 +70,23 @@ ALLOW_MULTIPLE_INSTANCES = False
 # 
 # Digital Clock
 # By default this displays the current time as HH:MM in large red digits.
-# You can customise the clock display by changing the images "digital?.png".
-# The code doesn't care what size the images are, so you can make them larger
-# or smaller as you want. For best results, you should make all of the digits
-# the same size. Then set the SPACING parameters below.
 # 
 
 SHOW_DIGITAL = True					# Should we render the digital clock?
-DIGITAL_SECONDS = False				# False - HH:MM; True - HH:MM:SS
-DIGITAL_X = CENTER_X			# Define where to start drawing the clock
-DIGITAL_Y = CENTER_Y - 250			# (this is the top-left point).
-DIGITAL_DIGIT_SPACING = 100			# How many pixels to move right after each digit
-DIGITAL_SEPARATOR_SPACING = 29		# How many pixels to move right after the separator (:)
-
-CLOCK_FONT = 'clock.ttf'
 DIGITAL_FONT_SIZE = 200
+DIGITAL_X = CENTER_X
+DIGITAL_Y = CENTER_Y - 250
 
 # 
 # Backtimer
-# This displays MM:SS until the top of the next hour. You can customize the
-# display in the same way as for the digital clock - change the "backtimer?.png"
-# images, and set the SPACING parameters.
+# This displays MM:SS until the top of the next hour.
 # 
 
 SHOW_BACKTIMER = True				# Should we render the backtimer?
 BACKTIMER_FONT_SIZE = 150
 BACKTIMER_MINUS = True				# Should we show a minus at the start?
-BACKTIMER_X = CENTER_X		# Define where to start drawing the backtimer
-BACKTIMER_Y = CENTER_Y - 100			# (this is the top-left point).
-BACKTIMER_DIGIT_SPACING = 80		# How many pixels to move right after each digit
-BACKTIMER_MINUS_SPACING = 80		# How many pixels to move right after the minus (if it's rendered)
-BACKTIMER_SEPARATOR_SPACING = 29	# How many pixels to move right after the separator (:)
+BACKTIMER_X = CENTER_X
+BACKTIMER_Y = CENTER_Y - 100
 
 # 
 # Dots
