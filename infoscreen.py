@@ -1,26 +1,5 @@
 #!/usr/bin/env python
 
-# Copyright (c) 2009 - 2013 Thomas Preece
-# 
-# Permission is hereby granted, free of charge, to any person obtaining 
-# a copy of this software and associated documentation files (the 
-# "Software"), to deal in the Software without restriction, including 
-# without limitation the rights to use, copy, modify, merge, publish, 
-# distribute, sublicense, and/or sell copies of the Software, and to 
-# permit persons to whom the Software is furnished to do so, subject to 
-# the following conditions:
-# 
-# The above copyright notice and this permission notice shall be 
-# included in all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 import sys
 import os
 import signal
@@ -88,28 +67,6 @@ def render_text(screen, font, text, x, y, color, align=LEFT):
 	
 	screen.blit(surf, (x, y))
 
-# main code starts here
-
-if USE_PIDFILE:
-	# check to see whether the PID file already exists
-	if os.access(PIDFILE, os.F_OK):
-		# PID file exists - check to see whether the process is still running
-		pf = open(PIDFILE, 'r')
-		old_pid = pf.readline()
-		if os.path.exists("/proc/%s" % old_pid):
-			# Infoscreen is already running
-			if not ALLOW_MULTIPLE_INSTANCES:
-				print 'Infoscreen is already running as PID %s' % old_pid
-				sys.exit(1)
-		else:
-			# redundant PID file - get rid of it
-			os.remove(PIDFILE)
-
-	# write the PID file
-	pid = str(os.getpid())
-	f = open(PIDFILE, 'w')
-	f.write(pid)
-	f.close()
 
 if DEBUG:
 	sys.exit()
@@ -164,8 +121,7 @@ for i in xrange(60):
 		MARKER_DOTS_X.append(DOTS_CENTER_X + MARKER_DOTS_RADIUS * math.cos(rad) - DOT_SIZE/2)
 		MARKER_DOTS_Y.append(DOTS_CENTER_Y + MARKER_DOTS_RADIUS * math.sin(rad) - DOT_SIZE/2)
 
-done = False
-while not done:	
+while True:	
 	# do drawing
 	screen.fill((0, 0, 0))
 	
@@ -241,9 +197,9 @@ while not done:
 			minsleft = 0
 
 		if BACKTIMER_MINUS:
-			backtimerstr = "-" + str(minsleft) + ":" + str(secsleft)
+			backtimerstr = "-%02d:%02d" % (minsleft, secsleft)
 		else:
-			backtimerstr = str(minsleft) + ":" + str(secsleft)
+			backtimerstr = "%02d:%02d" % (minsleft, secsleft)
 
 		render_text(screen, backtimerfont, backtimerstr, BACKTIMER_X, BACKTIMER_Y, COLOR['BACKTIMER'], CENTER)
 
@@ -333,7 +289,6 @@ while not done:
 	events = pygame.event.get()
 	for event in events:
 		if (event.type == QUIT) or ((event.type == KEYUP) and (event.key == K_ESCAPE)):
-			done = True
 			sys.exit(0)
 		if ((event.type == KEYUP) and (event.key == K_r)):
 			reload_info()
@@ -343,8 +298,7 @@ while not done:
 	# delay
 	time.sleep(0.1)
 
-if USE_PIDFILE and DELETE_PIDFILE_ON_EXIT:
-	os.remove(PIDFILE)
 
-sys.exit(0)
+
+
 
