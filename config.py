@@ -249,6 +249,14 @@ COLOR = {
 		'DATE': (255, 255, 255)
 		}
 
+# Type (live, prerec, etc)
+TYPE = {
+		'LIVE': "Live from Studio %s",
+		'PREREC': "PREREC from Studio %s",
+		'OB': "Outside Broadcast (via S%s)",
+		'AUTO': "Automation (Studio %s)"
+		}
+
 #
 # END
 #

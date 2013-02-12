@@ -247,7 +247,7 @@ while True:
 			ONAIR_Y = HEIGHT - PROGRESS_BAR_HEIGHT - ONAIR_FONT_SIZE
 		else:
 			ONAIR_Y = HEIGHT - ONAIR_FONT_SIZE
-		onair = "Live from Studio " + str(info["onair"])
+		onair = TYPE[info["type"]] % str(info["onair"])
 		render_text(screen, onairfont, info["show"], 10, ONAIR_Y, COLOR['SHOW'], LEFT)
 		render_text(screen, onairfont, onair, WIDTH-10, ONAIR_Y, COLOR['ONAIR'], RIGHT)
 
