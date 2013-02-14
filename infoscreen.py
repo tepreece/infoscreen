@@ -88,7 +88,7 @@ datefont = pygame.font.Font(DATE_TEXT_FONT, DATE_TEXT_SIZE)
 messagefont = pygame.font.Font(MESSAGE_TEXT_FONT, MESSAGE_TEXT_SIZE)
 digitalfont = pygame.font.Font(CLOCK_FONT, DIGITAL_FONT_SIZE)
 backtimerfont = pygame.font.Font(CLOCK_FONT, BACKTIMER_FONT_SIZE)
-npfont = pygame.font.Font(NP_FONT, NP_FONT_SIZE)
+npfont = pygame.font.Font(TEXT_FONT, NP_FONT_SIZE)
 remainsfont = pygame.font.Font(REMAINS_FONT, REMAINS_FONT_SIZE)
 onairfont = pygame.font.Font(ONAIR_FONT, ONAIR_FONT_SIZE)
 
@@ -244,12 +244,12 @@ while True:
 	# draw show/onair info
 	if SHOW_ONAIR:
 		if TRACKINFO:
-			ONAIR_Y = HEIGHT - PROGRESS_BAR_HEIGHT - ONAIR_FONT_SIZE
+			ONAIR_Y = HEIGHT - PROGRESS_BAR_HEIGHT - 40
 		else:
-			ONAIR_Y = HEIGHT - ONAIR_FONT_SIZE
+			ONAIR_Y = HEIGHT - 40
 		onair = TYPE[info["type"]] % str(info["onair"])
-		render_text(screen, onairfont, info["show"], 10, ONAIR_Y, COLOR['SHOW'], LEFT)
-		render_text(screen, onairfont, onair, WIDTH-10, ONAIR_Y, COLOR['ONAIR'], RIGHT)
+		render_text(screen, onairfont, info["show"], 15, ONAIR_Y, COLOR['SHOW'], LEFT)
+		render_text(screen, onairfont, onair, WIDTH-15, ONAIR_Y, COLOR['ONAIR'], RIGHT)
 
 	# NOW PLAYING stuff
 	#
@@ -269,11 +269,11 @@ while True:
 
 		if SHOW_TRACKINFO:
 			trackinfostr = info["track"]["artist"] + " - " + info["track"]["title"]
-			render_text(screen, npfont, trackinfostr, 10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_INFO'], LEFT)
+			render_text(screen, npfont, trackinfostr, 12, HEIGHT-(PROGRESS_BAR_HEIGHT/1.2), COLOR['TRACK_INFO'], LEFT)
 	
 		if SHOW_REMAINING:
 			remainingstr = "%d:%02d" % (m, s)
-			render_text(screen, remainsfont, remainingstr, WIDTH-10, HEIGHT-(PROGRESS_BAR_HEIGHT/1.5), COLOR['TRACK_REMAINS'], RIGHT)
+			render_text(screen, remainsfont, remainingstr, WIDTH-15, HEIGHT-(PROGRESS_BAR_HEIGHT/1.4), COLOR['TRACK_REMAINS'], RIGHT)
 	
 	else:
 		TRACKINFO = 0
