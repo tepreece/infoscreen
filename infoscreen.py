@@ -41,9 +41,7 @@ def sigusr2(signum, frame):
 
 def sighup(signum, frame):
 	# SIGHUP - reload configuration
-	if SHOW_MESSAGES:
-		#reload_messages()
-		reload_info()
+	reload_info()
 
 def reload_info():
 	global info
