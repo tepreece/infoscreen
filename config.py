@@ -1,4 +1,4 @@
-# Copyright (c) 2009 - 2012 Thomas Preece
+# Copyright (c) 2009 - 2013 Thomas Preece
 # 
 # Permission is hereby granted, free of charge, to any person obtaining 
 # a copy of this software and associated documentation files (the 
@@ -64,9 +64,6 @@ USE_PIDFILE = False				# Set to False to bypass all PID file code
 PIDFILE = 'infoscreen.pid'		# What is the name of our PID file?
 DELETE_PIDFILE_ON_EXIT = True	# Potentially unsafe if we allow multiple instances
 ALLOW_MULTIPLE_INSTANCES = False
-
-# Where to get information from (json)
-INFO_FNAME = 'info.json'
 
 # 
 # Digital Clock
@@ -240,24 +237,18 @@ DATE_TEXT_FONT = None
 DATE_TEXT_SIZE = 52
 
 # 
-# Messages
-# These are stored in the file specified. To re-read the messages at run time,
-# send a SIGHUP to the program. The message file format is:
-# red green blue Message text
-# eg: 255 0 255 This is a message in fuchsia.
+# Live information. This is stored in a JSON file and comprises messages,
+# track info and on air data.
 # 
 
+INFO_FNAME = 'info.json'			# Where to get information from
 SHOW_MESSAGES = False				# Should we render the messages?
-MESSAGES_FNAME = 'messages.txt'		# What file should we read the messages from? Absolute path is best.
 TICKS_PER_MESSAGE = 50				# 1 tick is approximately 1/10 s
 MESSAGE_X = CENTER_X				# Color, position, align and font as for time and date - see above. 
 MESSAGE_Y = HEIGHT-70
 MESSAGE_ALIGN = CENTER
 MESSAGE_TEXT_FONT = None
 MESSAGE_TEXT_SIZE = 52
-
-#
-# Trackinfo
 
 SHOW_TRACKINFO = True
 TRACKINFO_COLOR = (41, 255, 41)

@@ -1,4 +1,4 @@
-Infoscreen v 0.6 by Thomas Preece
+Infoscreen v 0.8 by Thomas Preece
 http://tpreece.net
 thomas@tpreece.net
 
@@ -84,7 +84,7 @@ various things such as which studio is on air in a multi-studio complex.
 LICENCE
 =======
 
-Copyright (c) 2009 - 2012 Thomas Preece
+Copyright (c) 2009 - 2013 Thomas Preece
 
 You may freely use this software under the conditions of the MIT licence 
 - see the LICENCE file for details.
@@ -103,6 +103,8 @@ format.
 
 VERSION HISTORY
 ===============
+
+v 0.8 (2013-03-21) - merge some changes made by URN
 
 v 0.7 (2012-09-30) - add PID file code
 
