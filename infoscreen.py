@@ -90,6 +90,29 @@ def render_text(screen, font, text, x, y, color, align=LEFT):
 if DEBUG:
 	sys.exit()
 
+# write a PID file
+
+if USE_PIDFILE:
+	# check to see whether the PID file already exists
+	if os.access(PIDFILE, os.F_OK):
+		# PID file exists - check to see whether the process is still running
+		pf = open(PIDFILE, 'r')
+		old_pid = pf.readline()
+		if os.path.exists("/proc/%s" % old_pid):
+			# Infoscreen is already running
+			if not ALLOW_MULTIPLE_INSTANCES:
+				print 'Infoscreen is already running as PID %s' % old_pid
+				sys.exit(1)
+		else:
+			# redundant PID file - get rid of it
+			os.remove(PIDFILE)
+
+	# write the PID file
+	pid = str(os.getpid())
+	f = open(PIDFILE, 'w')
+	f.write(pid)
+	f.close()
+
 # start pygame
 
 pygame.init()
@@ -308,6 +331,8 @@ while True:
 	events = pygame.event.get()
 	for event in events:
 		if (event.type == QUIT) or ((event.type == KEYUP) and (event.key == K_ESCAPE)):
+			if USE_PIDFILE and DELETE_PIDFILE_ON_EXIT:
+				os.remove(PIDFILE)
 			sys.exit(0)
 		if ((event.type == KEYUP) and (event.key == K_r)):
 			reload_info()
