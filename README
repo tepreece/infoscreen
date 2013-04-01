@@ -1,4 +1,4 @@
-Infoscreen v 0.8 by Thomas Preece
+Infoscreen v 0.9 by Thomas Preece
 http://tpreece.net
 thomas@tpreece.net
 
@@ -19,27 +19,12 @@ display in windowed mode, so it's recommended to test it on a large
 monitor. Change to the directory where the script is stored and run 
 ./infoscreen.py
 
-The following features are visible by default:
-
-1. digital 24-hour clock with hours and minutes - red seven-segment display
-2. digital countdown to top of hour (minutes and seconds) - green seven-segment
-3. analogue clock with hours and minutes - light blue clock hands
-4. seconds display with markers every five seconds - ring of red dots
-5. human-readable time and date - top of the screen
-6. variable messages - bottom of the screen
-
 The time displayed is current system time; you should generally use NTP 
 to ensure that your system's clock is always set correctly.
 
-The variable messages can be changed at run time. To do so, edit the 
-file "messages.txt". Each line is a separate message, and consists of 
-the required font colour (in decimal RGB - ie, 0 0 0 is black and 255 
-255 255 is white) followed by the message to be displayed. The messages 
-are displayed in rotation, approximately five seconds for each message: 
-if you want a message to be displayed for longer, put it in multiple 
-times.
+The variable information can be changed at runtime and is stored in info.json.
 
-Once you have adjusted the messages to your liking, save the file and 
+Once you have adjusted the information to your liking, save the file and 
 then send a SIGHUP to the program. On most Linux systems you can find 
 the process ID by running "ps ax | grep infoscreen", and then run "kill 
 -1 <process ID>".
@@ -81,6 +66,9 @@ Add the ability to show more information. There is space to add some
 indicators at either side of the screen. These could be used to show 
 various things such as which studio is on air in a multi-studio complex.
 
+There are possibly some bugs that have been introduced by rebasing URN's
+changes onto a later version of the codebase.
+
 LICENCE
 =======
 
@@ -103,6 +91,8 @@ format.
 
 VERSION HISTORY
 ===============
+
+v 0.9 (2013-04-01) - merge some more URN changes
 
 v 0.8 (2013-03-21) - merge some changes made by URN
 
