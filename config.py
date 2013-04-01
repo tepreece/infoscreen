@@ -273,15 +273,3 @@ COLOR = {
 # END
 #
 
-# Process management. We store the process ID of the process in a PID file. This
-# allows us to tell if Infoscreen is already running, and allows other processes
-# to send signals to the right place. We can also (optionally) delete the PID
-# file when Infoscreen terminates, and only allow one Infoscreen to run at any
-# one time.
-
-USE_PIDFILE = False				# Set to False to bypass all PID file code
-								# (probably required to run on Windows)
-PIDFILE = 'infoscreen.pid'		# What is the name of our PID file?
-DELETE_PIDFILE_ON_EXIT = True	# Potentially unsafe if we allow multiple instances
-ALLOW_MULTIPLE_INSTANCES = False
-
