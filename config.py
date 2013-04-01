@@ -1,4 +1,4 @@
-# Copyright (c) 2009 - 2013 Thomas Preece
+# Copyright (c) 2009 - 2012 Thomas Preece
 # 
 # Permission is hereby granted, free of charge, to any person obtaining 
 # a copy of this software and associated documentation files (the 
@@ -53,19 +53,11 @@ CENTER_Y = HEIGHT/2
 # the box.
 IMAGE_DIR = './images'
 
+# Where to get information from (json)
+INFO_FNAME = 'info.json'
+
+# font to be used by digital clock and backtimer
 CLOCK_FONT = 'clock.ttf'
-
-# Process management. We store the process ID of the process in a PID file. This
-# allows us to tell if Infoscreen is already running, and allows other processes
-# to send signals to the right place. We can also (optionally) delete the PID
-# file when Infoscreen terminates, and only allow one Infoscreen to run at any
-# one time.
-
-USE_PIDFILE = False				# Set to False to bypass all PID file code
-								# (probably required to run on Windows)
-PIDFILE = 'infoscreen.pid'		# What is the name of our PID file?
-DELETE_PIDFILE_ON_EXIT = True	# Potentially unsafe if we allow multiple instances
-ALLOW_MULTIPLE_INSTANCES = False
 
 # 
 # Digital Clock
@@ -73,20 +65,21 @@ ALLOW_MULTIPLE_INSTANCES = False
 # 
 
 SHOW_DIGITAL = True					# Should we render the digital clock?
+DIGITAL_SECONDS = False				# False - HH:MM; True - HH:MM:SS
 DIGITAL_FONT_SIZE = 200
 DIGITAL_X = CENTER_X
 DIGITAL_Y = CENTER_Y - 250
 
+
 # 
 # Backtimer
-# This displays MM:SS until the top of the next hour.
-# 
+# This displays MM:SS until the top of the next hour. 
 
 SHOW_BACKTIMER = True				# Should we render the backtimer?
 BACKTIMER_FONT_SIZE = 150
 BACKTIMER_MINUS = True				# Should we show a minus at the start?
-BACKTIMER_X = CENTER_X
-BACKTIMER_Y = CENTER_Y - 100
+BACKTIMER_X = CENTER_X		
+BACKTIMER_Y = CENTER_Y - 100			
 
 # 
 # Dots
@@ -113,7 +106,7 @@ DOT_SIZE = 15							# The diameter of a dot
 # hands colour in this case!
 # 
 
-SHOW_ANALOG = True				# Should we render the analog clock?
+SHOW_ANALOG = False				# Should we render the analog clock?
 SHOW_RING = False				# Should we render the ring / background circle?
 ANALOG_CENTER_X = CENTER_X		# Where should the center of the clock be?
 ANALOG_CENTER_Y = CENTER_Y
@@ -227,19 +220,23 @@ DATE_TEXT_FONT = None
 DATE_TEXT_SIZE = 52
 
 # 
-# Live information. This is stored in a JSON file and comprises messages,
-# track info and on air data.
+# Messages
+# These are stored in the file specified. To re-read the messages at run time,
+# send a SIGHUP to the program. The message file format is:
+# red green blue Message text
+# eg: 255 0 255 This is a message in fuchsia.
 # 
 
-INFO_FNAME = 'info.json'			# Where to get information from
 SHOW_MESSAGES = False				# Should we render the messages?
+MESSAGES_FNAME = 'messages.txt'		# What file should we read the messages from? Absolute path is best.
 TICKS_PER_MESSAGE = 50				# 1 tick is approximately 1/10 s
-MESSAGE_X = CENTER_X				# Color, position, align and font as for time and date - see above. 
-MESSAGE_Y = HEIGHT-70
-MESSAGE_ALIGN = CENTER
+MESSAGE_X = 10				# Color, position, align and font as for time and date - see above. 
+MESSAGE_Y = HEIGHT-55
+MESSAGE_ALIGN = LEFT
 MESSAGE_TEXT_FONT = None
 MESSAGE_TEXT_SIZE = 52
 
+#
 # Trackinfo
 
 SHOW_TRACKINFO = True
